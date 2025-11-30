@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Test Google Login</h2>
+    <div id="g_id_onload"
+         data-client_id="957724061742-tqkguhnt2736ia0mk1srct78r0taans1.apps.googleusercontent.com"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
+
+    <h3>Token Anda (Copy ini):</h3>
+    <textarea id="token-area" rows="10" cols="50"></textarea>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            document.getElementById("token-area").value = response.credential;
+            alert("Token berhasil didapat! Cek kotak teks di bawah.");
+        }
+    </script>
+</body>
+</html>
