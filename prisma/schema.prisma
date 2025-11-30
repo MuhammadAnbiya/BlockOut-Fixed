@@ -8,45 +8,44 @@ datasource db {
 }
 
 model User {
-  id                Int       @id @default(autoincrement())
+  id              Int      @id @default(autoincrement())
   
-  firstName         String
-  lastName          String
-  email             String    @unique
-  birthDate         DateTime? 
-  phoneNumber       String?   @unique
-  passwordHash      String?   
-  avatarUrl         String?   
+  firstName       String
+  lastName        String
+  email           String   @unique
+  birthDate       DateTime? 
+  phoneNumber     String?  @unique
+  passwordHash    String?   
   
-  heightCm          Int?      
-  weightKg          Int?      
+  heightCm        Int?      
+  weightKg        Int?      
   
-  walletAddress     String?
-  coinsBalance      Decimal   @default(0.0) @db.Decimal(18, 2)
-  dayStreak         Int       @default(0)
-  lastWorkout       DateTime?
-  totalWorkouts     Int       @default(0)
+  walletAddress   String?
+  coinsBalance    Decimal   @default(0.0) @db.Decimal(18, 2)
+  dayStreak       Int       @default(0)
+  lastWorkout     DateTime?
+  totalWorkouts   Int       @default(0)
 
-  avatarGender      String    @default("MALE")
-  equippedTop       String    @default("starter_hair")
-  equippedShirt     String    @default("starter_shirt")
-  equippedPants     String    @default("starter_pants")
-  equippedShoes     String    @default("starter_shoes")
+  avatarGender    String    @default("MALE")
+  equippedTop     String    @default("starter_hair")
+  equippedShirt   String    @default("starter_shirt")
+  equippedPants   String    @default("starter_pants")
+  equippedShoes   String    @default("starter_shoes")
 
-  notificationEnabled Boolean   @default(true)
+  notificationEnabled Boolean @default(true)
   
-  resetToken        String?
-  resetTokenExpiry  DateTime?
+  resetToken      String?
+  resetTokenExpiry DateTime?
   
-  refreshToken      String?
+  refreshToken    String?
 
-  blockedApps       BlockedApp[]
-  inventory         Inventory[]
-  workoutPrefs      WorkoutPreference[]
-  transactionQueue  TransactionQueue[]
-  purchases         PurchaseHistory[]
+  blockedApps     BlockedApp[]
+  inventory       Inventory[]
+  workoutPrefs    WorkoutPreference[]
+  transactionQueue TransactionQueue[]
+  purchases       PurchaseHistory[]
   
-  createdAt         DateTime  @default(now())
+  createdAt       DateTime  @default(now())
 }
 
 model BlockedApp {

@@ -73,26 +73,7 @@ async function handler(req, res) {
     }
   }
   
-  if (req.method === 'PUT') {
-    const { avatarUrl } = req.body;
-
-    if (!avatarUrl || typeof avatarUrl !== 'string') {
-      return res.status(400).json({ error: 'avatarUrl is required and must be a string' });
-    }
-
-    try {
-      await prisma.user.update({
-        where: { id: userId },
-        data: { avatarUrl }
-      });
-
-      return res.status(200).json({ success: true, message: 'Profile picture updated' });
-    } catch (error) {
-      console.error('Profile PUT Error:', error);
-      return res.status(500).json({ error: 'Failed to update profile' });
-    }
-  }
-
+  
   res.setHeader("Allow", "GET,OPTIONS");
   return res.status(405).json({ error: "Method Not Allowed" });
 }

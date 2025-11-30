@@ -6,9 +6,6 @@ import { generateTokens } from '../../../lib/jwt';
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const client = new OAuth2Client(CLIENT_ID);
 
-/**
- * Memverifikasi ID Token yang dikirim dari Frontend langsung ke Server Google.
- */
 async function verifyGoogleToken(idToken) {
   try {
     const ticket = await client.verifyIdToken({
@@ -22,12 +19,8 @@ async function verifyGoogleToken(idToken) {
   }
 }
 
-/**
- * Mencari user berdasarkan email. Jika tidak ada, buat baru.
- * Otomatis mengambil foto profil dari Google jika tersedia.
- */
 async function findOrCreateUser(payload) {
-  const { email, given_name, family_name, picture } = payload;
+  const { email, given_name, family_name } = payload; 
 
   let user = await prisma.user.findUnique({ where: { email } });
 
@@ -38,7 +31,6 @@ async function findOrCreateUser(payload) {
         email,
         firstName: given_name || "User",
         lastName: family_name || "",
-        avatarUrl: picture || "", 
         
         avatarGender: "MALE", 
         equippedTop: "starter_hair",
@@ -47,8 +39,7 @@ async function findOrCreateUser(payload) {
         equippedShoes: "starter_shoes"
       }
     });
-  } else {
-}
+  }
 
   return user;
 }
@@ -86,8 +77,7 @@ export default async function handler(req, res) {
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        avatarUrl: user.avatarUrl,
-        isNewUser: Date.now() - new Date(user.createdAt).getTime() < 60000 
+        isNewUser: Date.now() - new Date(user.createdAt).getTime() < 60000
       }
     });
 
